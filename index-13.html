@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B132B">
+  <meta name="description" content="مُهيّأ — رحلتك تبدأ بخطوة. تحقق من جاهزية رحلتك قبل السفر.">
+  <title>مُهيّأ | Muhayya</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2310B981%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ctitle%3EMuhayya%3C/title%3E%3Cpath%20d%3D%22M12%202.8l7.2%203.1v5.6c0%204.6-3.1%207.9-7.2%209.3-4.1-1.4-7.2-4.7-7.2-9.3V5.9z%22/%3E%3Cpath%20d%3D%22M8.7%2012.1l2.3%202.3%204.3-4.7%22/%3E%3C/svg%3E">
+  <style>
+:root {
+  --brand: #10B981;
+  --brand-dk: #059669;
+  --danger: #E5484D;
+  --warn: #F5A524;
+
+  --r-card: 18px;
+  --r-btn: 14px;
+  --r-field: 12px;
+  --r-tile: 14px;
+  --r-box: 13px;
+  --r-pill: 999px;
+
+  --wrap: 760px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Arabic",
+          "Geeza Pro", Tahoma, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0B132B;
+  --surface: #141C38;
+  --surface2: #1B2545;
+  --border: rgba(255, 255, 255, 0.10);
+  --text: #F1F5F9;
+  --muted: #93A3BC;
+  --brand-soft: rgba(16, 185, 129, 0.14);
+  --danger-soft: rgba(229, 72, 77, 0.14);
+  --warn-soft: rgba(245, 165, 36, 0.14);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --code-bg: #0A1024;
+  --brand-ink: #10B981;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #F5F7FA;
+  --surface: #FFFFFF;
+  --surface2: #EEF2F7;
+  --border: rgba(15, 23, 42, 0.10);
+  --text: #0F172A;
+  --muted: #5B6B80;
+  --brand-soft: #D9F7EC;
+  --danger-soft: #FDE8E8;
+  --warn-soft: #FDF1DC;
+  --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  --code-bg: #0F172A;
+  --brand-ink: #059669;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+@keyframes mhSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text);
+  min-width: 0;
+}
+
+.topbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.topbar__name {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.topbar__tools {
+  margin-inline-start: auto;
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 11px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 18px 14px 44px;
+  width: 100%;
+}
+
+.footer {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.footer.is-hidden {
+  display: none;
+}
+
+.stack     { display: grid; gap: 16px; }
+.row       { display: flex; gap: 10px; }
+.row--top  { margin-top: 20px; }
+.grid2     { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid3     { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.f1        { flex: 1; }
+.f14       { flex: 1.4; }
+.f15       { flex: 1.5; }
+.f16       { flex: 1.6; }
+.mb20      { margin-bottom: 20px; }
+.mt14      { margin-top: 14px; }
+.center    { text-align: center; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+.card--hero   { padding: 26px; text-align: center; }
+.card--center { display: flex; flex-direction: column; align-items: center; }
+.card--flush  { padding: 0; overflow: hidden; }
+.card--pad8   { padding: 8px; }
+.card--check  { text-align: center; padding: 54px 22px; }
+
+.h1 { font-size: 25px; font-weight: 800; margin: 0; line-height: 1.4; color: var(--text); }
+.h1--sm { font-size: 21px; }
+.h2 { font-size: 18px; font-weight: 800; margin: 0; color: var(--text); }
+.h2--sm { font-size: 17px; }
+.h2--xs { font-size: 16px; }
+.p  { font-size: 14.5px; line-height: 1.85; color: var(--muted); margin: 0; }
+.p--sm { font-size: 13.5px; }
+.p--xs { font-size: 12.5px; }
+.p--ink { color: var(--text); font-weight: 500; font-size: 14px; }
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 7px;
+  font-weight: 600;
+}
+
+.field {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--r-field);
+  padding: 13px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  min-height: 48px;
+  outline: none;
+}
+
+.field:focus {
+  border-color: var(--brand);
+}
+
+select.field {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: var(--r-btn);
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 50px;
+  width: 100%;
+  line-height: 1.3;
+}
+
+.btn--primary { background: var(--brand); color: #04231A; }
+.btn--ghost   { background: transparent; color: var(--text); border-color: var(--border); }
+.btn--brand   { background: var(--brand-soft); color: var(--brand-ink); border-color: rgba(16, 185, 129, 0.38); }
+
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn--row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.arrow { flex-shrink: 0; }
+html[dir="rtl"] .arrow { transform: rotate(180deg); }
+
+.mode {
+  padding: 13px 4px;
+  background: var(--surface2);
+  color: var(--text);
+  border-color: var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.mode.is-on {
+  background: var(--brand-soft);
+  color: var(--brand-ink);
+  border-color: var(--brand);
+}
+
+.mode__i { font-size: 20px; }
+
+.badge {
+  width: 62px;
+  height: 62px;
+  border-radius: var(--r-card);
+  background: var(--brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.badge--sm { width: 56px; height: 56px; border-radius: 17px; }
+
+.brandname {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+}
+
+.step__n {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: var(--brand-soft);
+  color: var(--brand-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.step__t { font-size: 15px; font-weight: 600; color: var(--text); }
+
+.split { display: flex; gap: 14px; align-items: flex-start; }
+.split__body { min-width: 0; }
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(--r-box);
+  background: var(--brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box--plain { background: var(--surface); }
+
+.chip {
+  border-radius: var(--r-pill);
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.chip--ok   { background: var(--brand-soft);  color: var(--brand-ink); }
+.chip--warn { background: var(--warn-soft);   color: var(--warn); }
+.chip--bad  { background: var(--danger-soft); color: var(--danger); }
+.chip--mute { background: var(--surface2);    color: var(--muted); }
+
+.tile {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-tile);
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.tile__i { font-size: 18px; flex-shrink: 0; }
+.tile__b { min-width: 0; }
+.tile__v {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tile__n { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+
+.score { position: relative; width: 180px; height: 180px; }
+.score__mid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score__num { font-size: 38px; font-weight: 800; color: var(--text); }
+.score__lbl { font-size: 13px; font-weight: 700; color: var(--muted); }
+
+.card--alert { background: var(--danger-soft); border-color: rgba(229, 72, 77, 0.35); }
+.card--ok    { background: var(--brand-soft);  border-color: rgba(16, 185, 129, 0.35); }
+
+.alert__head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.alert__title { font-weight: 800; font-size: 15.5px; color: var(--danger); }
+.alert__item { background: var(--surface); border-radius: var(--r-box); padding: 13px; }
+.alert__top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.alert__name { font-size: 14.5px; font-weight: 800; color: var(--text); flex: 1; min-width: 0; }
+.alert__meta { font-size: 12.5px; color: var(--muted); line-height: 1.9; }
+
+.ok__t { font-weight: 800; font-size: 15.5px; color: var(--brand-ink); margin-bottom: 6px; }
+.ok__d { font-size: 13.5px; color: var(--muted); }
+
+.stat { background: var(--surface2); border-radius: var(--r-box); padding: 13px; min-width: 0; }
+.stat__k { font-size: 11.5px; color: var(--muted); font-weight: 700; margin-bottom: 5px; }
+.stat__v { font-size: 26px; font-weight: 800; line-height: 1.2; }
+.stat__v--sm { font-size: 15px; line-height: 1.35; color: var(--brand-ink); }
+.stat__u { font-size: 13px; font-weight: 700; margin-inline-start: 4px; }
+.stat__s { margin-top: 6px; font-size: 12px; font-weight: 700; }
+.stat__s--mute { color: var(--muted); }
+
+.chart { direction: ltr; width: 100%; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.legend {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.legend__i { display: flex; align-items: center; gap: 5px; }
+.legend__d { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+.reco__list { min-width: 0; display: grid; gap: 12px; }
+.reco__line { display: flex; gap: 9px; align-items: flex-start; }
+.reco__n { color: var(--brand-ink); font-weight: 800; flex-shrink: 0; font-size: 13px; line-height: 26px; }
+
+.req__row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 11px;
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
+}
+.req__row:last-child { border-bottom: none; }
+.req__mark {
+  width: 27px;
+  height: 27px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+.req__mark--ok   { background: var(--brand-soft);  color: var(--brand-ink); }
+.req__mark--warn { background: var(--warn-soft);   color: var(--warn); }
+.req__mark--bad  { background: var(--danger-soft); color: var(--danger); }
+.req__b { flex: 1; min-width: 0; }
+.req__name { font-size: 14.5px; font-weight: 700; color: var(--text); }
+.req__meta { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+
+.doc__head { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.doc__name { font-size: 13px; font-weight: 700; color: var(--muted); flex: 1; min-width: 0; }
+.docs__list { display: grid; gap: 14px; margin-top: 16px; }
+.docs__title { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+
+.endpoint {
+  display: inline-block;
+  background: var(--surface2);
+  border-radius: 9px;
+  padding: 7px 11px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brand-ink);
+  direction: ltr;
+}
+
+.code {
+  margin: 0;
+  padding: 16px;
+  background: var(--code-bg);
+  color: #8CE0BE;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.65;
+  direction: ltr;
+  text-align: left;
+  overflow-x: auto;
+  white-space: pre;
+  max-height: 440px;
+}
+
+.spinner {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  border: 4px solid var(--border);
+  border-top-color: var(--brand);
+  animation: mhSpin 0.9s linear infinite;
+}
+
+.spinner--sm {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border-width: 3px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.chips-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 360px) {
+  .card { padding: 16px; }
+  .card--hero { padding: 20px; }
+  .h1 { font-size: 23px; }
+  .score { width: 160px; height: 160px; }
+  .score__num { font-size: 34px; }
+  .mode { font-size: 12px; }
+}
+
+@media (min-width: 700px) {
+  .wrap { padding: 24px 20px 56px; }
+}
+
+.stepbar { display: flex; align-items: center; gap: 10px; }
+.stepbar__t { font-size: 12.5px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.stepbar__bar { flex: 1; height: 5px; border-radius: var(--r-pill); background: var(--surface2); overflow: hidden; }
+.stepbar__fill { display: block; height: 100%; background: var(--brand); border-radius: var(--r-pill); }
+
+.grid2b { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.why {
+  background: var(--surface2);
+  border-radius: var(--r-box);
+  padding: 11px 12px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 8px;
+}
+
+.basis { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+.basis__k { font-size: 12px; font-weight: 700; color: var(--muted); }
+
+.docrow { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.docrow:first-child { padding-top: 0; }
+.docrow:last-child { border-bottom: none; padding-bottom: 0; }
+
+.ref {
+  display: flex; align-items: center; gap: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-tile);
+  padding: 13px;
+}
+
+.req__hint { font-size: 11.5px; color: var(--muted); font-weight: 600; padding: 10px 11px 4px; }
+.req__wrap { border-bottom: 1px solid var(--border); }
+.req__wrap:last-child { border-bottom: none; }
+
+.req__btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: inherit;
+  font-family: inherit;
+  border-bottom: none;
+}
+.req__btn .req__b { display: flex; flex-direction: column; }
+
+.req__why {
+  padding: 0 11px 14px;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.req__why-k { color: var(--brand-ink); font-weight: 700; }
+
+.kv {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+.kv:last-child { border-bottom: none; }
+.kv__k { font-size: 13px; color: var(--muted); font-weight: 700; flex: 1; min-width: 0; }
+.kv__v { font-size: 13.5px; color: var(--text); font-weight: 700; text-align: end; }
+
+.rule { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.rule:first-child { padding-top: 0; }
+.rule:last-child { border-bottom: none; padding-bottom: 0; }
+.rule__head { display: flex; align-items: center; gap: 10px; }
+.rule__name { font-size: 14.5px; font-weight: 700; color: var(--text); flex: 1; min-width: 0; }
+
+.code__k {
+  padding: 12px 16px 0;
+  background: var(--code-bg);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  direction: ltr;
+  text-align: left;
+}
+.code--sm { font-size: 10px; max-height: none; margin-top: 12px; border-radius: var(--r-box); }
+  </style>
+</head>
+<body>
+
+  <!-- ============ Top bar ============ -->
+  <header class="topbar">
+    <button class="topbar__brand" id="brandBtn" data-act="go" data-go="home" aria-label="الرئيسية">
+      <span class="topbar__logo" id="brandLogo"></span>
+      <span class="topbar__name" data-i18n="brand">مُهيّأ</span>
+    </button>
+
+    <div class="topbar__tools">
+      <button class="toggle" id="themeBtn" data-act="theme" aria-label="المظهر">🌙</button>
+      <button class="toggle" id="langBtn" data-act="lang" aria-label="اللغة">EN</button>
+    </div>
+  </header>
+
+  <!-- ============ Screens render here ============ -->
+  <main class="wrap">
+    <div id="app"></div>
+
+    <div class="footer" id="footer">
+      <span data-i18n="brand">مُهيّأ</span> — <span data-i18n="footer">رحلتك تبدأ بخطوة.</span>
+    </div>
+  </main>
+
+  <noscript>
+    <div class="wrap">
+      <div class="card">
+        <p class="p">هذا النموذج الأولي يحتاج تفعيل JavaScript لعرض الشاشات.</p>
+        <p class="p">This prototype needs JavaScript enabled to display its screens.</p>
+      </div>
+    </div>
+  </noscript>
+
+  <script>
+(function () {
+  "use strict";
+
+  /* ============ 1. الإعداد والربط بالـ API ============ */
+
+  var API_BASE = "https://mohaya-api.loca.lt";
+  var API_PATH = "/api/check-readiness";
+  var API_HEADERS = {
+    "Content-Type": "application/json",
+    "Bypass-Tunnel-Reminder": "true"
+  };
+
+  /* ============ 2. الجنسيات والوجهات والمنافذ ============ */
+
+  var NATIONALITIES = [
+    { id: "sa",    ar: "سعودي",   en: "Saudi",   gcc: true },
+    { id: "ae",    ar: "إماراتي", en: "Emirati", gcc: true },
+    { id: "bh",    ar: "بحريني",  en: "Bahraini", gcc: true },
+    { id: "kw",    ar: "كويتي",   en: "Kuwaiti", gcc: true },
+    { id: "om",    ar: "عُماني",  en: "Omani",   gcc: true },
+    { id: "qa",    ar: "قطري",    en: "Qatari",  gcc: true },
+    { id: "other", ar: "جنسية أخرى (مقيم)", en: "Other nationality (resident)", gcc: false }
+  ];
+
+  var DESTS = {
+    sa: { ar: "المملكة العربية السعودية", en: "Saudi Arabia", passportGrace: 90, crossings: [
+      { id: "kfc_in",    ar: "جسر الملك فهد",  en: "King Fahd Causeway", f: 0.95 },
+      { id: "batha_in",  ar: "منفذ البطحاء",   en: "Al Batha",           f: 0.80 }
+    ]},
+    ae: { ar: "الإمارات العربية المتحدة", en: "United Arab Emirates", passportGrace: 90, crossings: [
+      { id: "batha",     ar: "منفذ البطحاء",   en: "Al Batha",           f: 0.85 },
+      { id: "ghuwaifat", ar: "منفذ الغويفات",  en: "Al Ghuwaifat",       f: 0.50 }
+    ]},
+    bh: { ar: "البحرين", en: "Bahrain", passportGrace: 90, crossings: [
+      { id: "kfc",       ar: "جسر الملك فهد",  en: "King Fahd Causeway", f: 1.00 }
+    ]},
+    kw: { ar: "الكويت", en: "Kuwait", passportGrace: 180, crossings: [
+      { id: "khafji",    ar: "منفذ الخفجي",    en: "Al Khafji",          f: 0.75 },
+      { id: "nuwaiseeb", ar: "منفذ النويصيب",  en: "Al Nuwaiseeb",       f: 0.60 }
+    ]},
+    om: { ar: "عُمان", en: "Oman", passportGrace: 180, crossings: [
+      { id: "rubalkhali", ar: "منفذ الربع الخالي", en: "Empty Quarter",  f: 0.35 },
+      { id: "halat",      ar: "منفذ حالة عمار",    en: "Halat Ammar",    f: 0.45 }
+    ]},
+    qa: { ar: "قطر", en: "Qatar", passportGrace: 90, crossings: [
+      { id: "salwa",     ar: "منفذ سلوى",      en: "Salwa",              f: 0.80 },
+      { id: "abusamra",  ar: "منفذ أبو سمرة",  en: "Abu Samra",          f: 0.55 }
+    ]}
+  };
+
+  var MODE_FACTOR = { car: 1.0, bus: 1.15 };
+
+  /* ============ 3. كتالوج المتطلبات ============ */
+
+  var REQ = {
+    passport:             { ar: "جواز السفر",                 en: "Passport",                 type: "date", src: "traveler", grace: "dest" },
+    national_id:          { ar: "الهوية الوطنية",             en: "National ID",              type: "date", src: "traveler", grace: 30 },
+    resident_id:          { ar: "هوية مقيم (الإقامة)",        en: "Residency ID (Iqama)",     type: "date", grace: 30 },
+    exit_reentry:         { ar: "تأشيرة خروج وعودة",          en: "Exit and re-entry visa",   type: "date", grace: 0 },
+    minor_consent:        { ar: "إذن سفر من ولي الأمر",       en: "Guardian travel consent",  type: "bool" },
+    driver_license:       { ar: "رخصة القيادة",               en: "Driver licence",           type: "date", grace: 30 },
+    vehicle_registration: { ar: "استمارة المركبة (الملكية)",  en: "Vehicle registration",     type: "date", grace: 30 },
+    vehicle_insurance:    { ar: "تأمين المركبة",              en: "Vehicle insurance",        type: "date", grace: 0 },
+    periodic_inspection:  { ar: "الفحص الدوري",               en: "Periodic inspection",      type: "date", grace: 30 },
+    rental_contract:      { ar: "عقد إيجار المركبة",          en: "Car rental contract",      type: "date", grace: 0 },
+    rental_permit:        { ar: "تصريح خروج من شركة التأجير", en: "Rental exit permit",       type: "date", grace: 0 },
+    authorization:        { ar: "تفويض قيادة المركبة",        en: "Driving authorisation",    type: "date", grace: 0 },
+    bus_ticket:           { ar: "تذكرة الحافلة",              en: "Bus ticket",               type: "bool" }
+  };
+
+  /* ============ 4. محرك تحديد المتطلبات ============ */
+
+  function nationalityOf(id) {
+    for (var i = 0; i < NATIONALITIES.length; i++) if (NATIONALITIES[i].id === id) return NATIONALITIES[i];
+    return NATIONALITIES[0];
+  }
+
+  function ageAtTravel(dob, travelDate) {
+    var days = daysBetween(dob, travelDate);
+    return Math.floor(days / 365.25);
+  }
+
+  function determineRequirements(s) {
+    var list = [];
+    var nat = nationalityOf(s.nationality);
+    var destName = function () { return DESTS[s.destKey] ? (isRTL() ? DESTS[s.destKey].ar : DESTS[s.destKey].en) : ""; };
+
+    function add(key, whyAr, whyEn) {
+      list.push({ key: key, because: isRTL() ? whyAr : whyEn });
+    }
+
+    if (!nat.gcc) {
+      add("passport",
+        "جنسيتك غير خليجية، لذلك يلزم جواز سفر ساري للعبور إلى " + destName() + ".",
+        "Your nationality is non-GCC, so a valid passport is required to cross into " + destName() + ".");
+      add("resident_id",
+        "أنت مقيم في دول الخليج، لذلك تُطلب الإقامة سارية عند العبور.",
+        "You are a GCC resident, so a valid residency ID is checked at the crossing.");
+      add("exit_reentry",
+        "المقيم يحتاج تأشيرة خروج وعودة سارية تغطي تاريخ السفر.",
+        "Residents need an exit and re-entry visa that covers the travel date.");
+    } else if (s.docType === "passport") {
+      add("passport",
+        "اخترت جواز السفر كوثيقة سفر، ويجب أن يبقى سارياً " + DESTS[s.destKey].passportGrace + " يوماً بعد تاريخ السفر لدخول " + destName() + ".",
+        "You selected passport as your travel document; it must stay valid " + DESTS[s.destKey].passportGrace + " days beyond the travel date for " + destName() + ".");
+    } else {
+      add("national_id",
+        "أنت مواطن خليجي ومسافر إلى دولة خليجية، لذلك تكفي الهوية الوطنية للعبور.",
+        "You are a GCC citizen travelling to a GCC country, so a national ID is sufficient to cross.");
+    }
+
+    var age = ageAtTravel(s.dob, s.date);
+    if (age >= 0 && age < 18) {
+      add("minor_consent",
+        "عمرك " + age + " سنة في تاريخ السفر (أقل من 18)، لذلك يلزم إذن سفر من ولي الأمر.",
+        "You are " + age + " at the travel date (under 18), so a guardian travel consent is required.");
+    }
+
+    if (s.mode === "car") {
+      add("driver_license",
+        "ستسافر بسيارة خاصة، لذلك تُطلب رخصة قيادة سارية.",
+        "You are travelling by private car, so a valid driver licence is required.");
+
+      if (s.vehicleType === "rented") {
+        add("rental_contract",
+          "السيارة مستأجرة، لذلك يُطلب عقد الإيجار بدلاً من استمارة الملكية.",
+          "The car is rented, so the rental contract replaces the ownership registration.");
+        add("rental_permit",
+          "شركات التأجير تشترط تصريح خروج للمركبة خارج حدود المملكة.",
+          "Rental companies require an exit permit to take the vehicle across the border.");
+        add("vehicle_insurance",
+          "تأمين المركبة يجب أن يغطي دولة الوجهة في تاريخ السفر.",
+          "Vehicle insurance must cover the destination country on the travel date.");
+      } else {
+        add("vehicle_registration",
+          "السفر بسيارة خاصة يتطلب استمارة مركبة سارية.",
+          "Travelling by private car requires a valid vehicle registration.");
+        add("vehicle_insurance",
+          "تأمين المركبة يجب أن يغطي دولة الوجهة في تاريخ السفر.",
+          "Vehicle insurance must cover the destination country on the travel date.");
+        add("periodic_inspection",
+          "الفحص الدوري للمركبة مطلوب وسارٍ عند العبور البري.",
+          "A valid periodic vehicle inspection is required at land crossings.");
+
+        if (s.vehicleType === "authorized") {
+          add("authorization",
+            "المركبة ليست باسمك (سيارة بتفويض)، لذلك يلزم تفويض قيادة ساري.",
+            "The vehicle is not registered in your name (authorised car), so a valid driving authorisation is required.");
+        }
+      }
+    } else {
+      add("bus_ticket",
+        "ستسافر عبر نقل جماعي (حافلة)، لذلك لا تُطلب وثائق المركبة الخاصة، ويُطلب حجز مؤكد.",
+        "You are travelling by public transport (bus), so private vehicle documents do not apply and a confirmed booking is required.");
+    }
+
+    return list;
+  }
+
+  /* ============ 5. محرك التحقق والجاهزية ============ */
+
+  var CREDIT = { valid: 1.0, soon: 0.5, expired: 0.0, missing: 0.0 };
+
+  function daysBetween(fromStr, toStr) {
+    var a = new Date(String(fromStr) + "T00:00:00Z").getTime();
+    var b = new Date(String(toStr) + "T00:00:00Z").getTime();
+    if (isNaN(a) || isNaN(b)) return NaN;
+    return Math.round((b - a) / 86400000);
+  }
+
+  function graceFor(def, s) {
+    if (def.grace === "dest") return DESTS[s.destKey] ? DESTS[s.destKey].passportGrace : 90;
+    return def.grace || 0;
+  }
+
+  function valueFor(key, s) {
+    var def = REQ[key];
+    if (def.src === "traveler") return s.docExpiry;
+    return s.docs[key];
+  }
+
+  function evaluate(key, s) {
+    var def = REQ[key];
+    var v = valueFor(key, s);
+
+    if (def.type === "bool") {
+      if (v === true) {
+        return { status: "valid",
+          reasonAr: "مؤكد ومتوفر لهذه الرحلة.",
+          reasonEn: "Confirmed and available for this trip." };
+      }
+      return { status: "missing",
+        reasonAr: "لم تؤكد توفر هذا المتطلب بعد.",
+        reasonEn: "You have not confirmed this requirement yet." };
+    }
+
+    if (!v) {
+      return { status: "missing",
+        reasonAr: "لم تُدخل تاريخ انتهاء هذه الوثيقة، فلا يمكن التحقق من صلاحيتها.",
+        reasonEn: "No expiry date entered, so validity cannot be verified." };
+    }
+
+    var days = daysBetween(s.date, v);
+    if (isNaN(days)) {
+      return { status: "missing", reasonAr: "التاريخ المدخل غير صالح.", reasonEn: "The entered date is not valid." };
+    }
+
+    // قاعدة الحالة صارمة: تاريخ الانتهاء مقابل تاريخ الرحلة فقط.
+    // expiry_date >= travel_date -> سارية | expiry_date < travel_date -> منتهية
+    if (days < 0) {
+      return { status: "expired", days: days,
+        reasonAr: "انتهت في " + fmtDate(v, "ar") + "، أي قبل تاريخ السفر بـ " + Math.abs(days) + " يوماً.",
+        reasonEn: "Expired on " + fmtDate(v, "en") + ", which is " + Math.abs(days) + " days before the travel date." };
+    }
+    return { status: "valid", days: days,
+      reasonAr: "سارية حتى " + fmtDate(v, "ar") + "، أي بعد تاريخ السفر بـ " + days + " يوماً.",
+      reasonEn: "Valid until " + fmtDate(v, "en") + ", which is " + days + " days after the travel date." };
+  }
+
+  function runReadiness(s) {
+    var required = determineRequirements(s);
+    var items = required.map(function (r) {
+      var ev = evaluate(r.key, s);
+      var def = REQ[r.key];
+      return {
+        key: r.key,
+        because: r.because,
+        type: def.type,
+        src: def.src || null,
+        grace: graceFor(def, s),
+        value: valueFor(r.key, s),
+        status: ev.status,
+        days: ev.days,
+        credit: CREDIT[ev.status],
+        reason: isRTL() ? ev.reasonAr : ev.reasonEn
+      };
+    });
+
+    var total = items.length;
+    var met = items.reduce(function (a, i) { return a + i.credit; }, 0);
+    var score = total ? Math.round((met / total) * 100) : 0;
+
+    return {
+      items: items,
+      total: total,
+      met: met,
+      score: score,
+      level: score >= 85 ? "high" : score >= 60 ? "medium" : "low",
+      gaps: items.filter(function (i) { return i.status !== "valid"; }),
+      entered: items.filter(function (i) { return i.status !== "missing"; }).length
+    };
+  }
+
+  /* ============ 6. نموذج التنبؤ بالازدحام ============ */
+
+  var BASE_CURVE = [16, 11, 8, 7, 10, 20, 38, 58, 64, 50, 42, 38,
+                    40, 44, 50, 60, 76, 92, 104, 96, 78, 56, 34, 22];
+  var DOW_FACTOR = [0.9, 0.85, 0.85, 0.95, 1.35, 1.2, 1.1];
+
+  function predictWaitCurve(crossingF, modeF, dateStr) {
+    var d = new Date(String(dateStr) + "T00:00:00Z");
+    var dow = isNaN(d.getTime()) ? 2 : d.getUTCDay();
+    var f = DOW_FACTOR[dow] * crossingF * modeF;
+    return BASE_CURVE.map(function (v) { return Math.max(5, Math.round(v * f)); });
+  }
+
+  function waitBand(m) { return m > 60 ? "high" : m >= 25 ? "medium" : "low"; }
+
+  function findBestWindow(curve, arrivalHour, span) {
+    var lo = Math.max(0, arrivalHour - span);
+    var hi = Math.min(23, arrivalHour + span);
+    var best = arrivalHour;
+    for (var h = lo; h <= hi; h++) if (curve[h] < curve[best]) best = h;
+    var saved = curve[arrivalHour] - curve[best];
+    return { hour: best, wait: curve[best], saved: saved, worthIt: saved >= 10 };
+  }
+
+  /* ============ 7. محرك التوصيات ============ */
+
+  function buildRecommendations(d) {
+    var lines = [];
+    var r = d.readiness;
+
+    if (d.apiRecommendationText) {
+      lines.push(d.apiRecommendationText);
+    } else if (!r.gaps.length) {
+      lines.push(isRTL()
+        ? "رحلتك جاهزة بنسبة " + r.score + "%. جميع المتطلبات الـ" + r.total + " المطلوبة لهذه الرحلة مكتملة."
+        : "Your trip is " + r.score + "% ready. All " + r.total + " requirements for this trip are complete.");
+    } else {
+      lines.push(isRTL()
+        ? "جاهزيتك " + r.score + "%. يوجد " + r.gaps.length + " من أصل " + r.total + " متطلباً يحتاج إلى استكمال قبل موعد السفر."
+        : "You are " + r.score + "% ready. " + r.gaps.length + " of " + r.total + " requirements need attention before your travel date.");
+
+      r.gaps.forEach(function (g) {
+        var name = isRTL() ? REQ[g.key].ar : REQ[g.key].en;
+        if (g.status === "expired") {
+          lines.push(isRTL()
+            ? "جدّد " + name + " قبل " + fmtDate(d.s.date, "ar") + "."
+            : "Renew your " + name.toLowerCase() + " before " + fmtDate(d.s.date, "en") + ".");
+        } else if (g.status === "soon") {
+          lines.push(isRTL()
+            ? "يُفضّل تجديد " + name + " لأن صلاحيتها لا تغطي المدة المطلوبة بعد السفر."
+            : "Consider renewing your " + name.toLowerCase() + "; its validity does not cover the required period after travel.");
+        } else {
+          lines.push(isRTL()
+            ? "أدخل بيانات " + name + " حتى يتمكن مُهيأ من التحقق منها."
+            : "Enter your " + name.toLowerCase() + " details so Muhayya can verify it.");
+        }
+      });
+    }
+
+    lines.push(d.best.worthIt
+      ? (isRTL()
+        ? "يُفضّل الوصول إلى " + d.crossingName + " عند " + fmtHour(d.best.hour, "ar") + " بدلاً من " + fmtTime(d.s.time, "ar") + " لتوفير حوالي " + d.best.saved + " دقيقة انتظار."
+        : "Arrive at " + d.crossingName + " around " + fmtHour(d.best.hour, "en") + " instead of " + fmtTime(d.s.time, "en") + " to save about " + d.best.saved + " minutes of waiting.")
+      : (isRTL()
+        ? "وقت وصولك " + fmtTime(d.s.time, "ar") + " مناسب عند " + d.crossingName + " — لا حاجة لتغييره."
+        : "Your arrival at " + fmtTime(d.s.time, "en") + " is already good for " + d.crossingName + " — no change needed."));
+
+    return lines;
+  }
+
+  /* ============ 8. عقد الـ API ============ */
+
+  // خريطة مفاتيح مُهيأ الداخلية (REQ) <-> مفاتيح documents التي يتوقعها الـbackend الحقيقي.
+  // عدّل هذا الكائن فقط إذا غيّر الـbackend أسماء الحقول مستقبلاً.
+  var BACKEND_DOC_KEYS = {
+    passport: "passport",              // جواز السفر -> passport
+    vehicle_insurance: "insurance",    // تأمين المركبة -> insurance
+    driver_license: "license",         // رخصة القيادة -> license
+    periodic_inspection: "vehicle_inspection" // الفحص الدوري -> vehicle_inspection
+  };
+  // الاتجاه المعاكس، لقراءة document_status القادم من الاستجابة وربطه بمتطلبات مُهيأ الداخلية
+  var BACKEND_DOC_KEYS_REV = (function () {
+    var rev = {};
+    Object.keys(BACKEND_DOC_KEYS).forEach(function (k) { rev[BACKEND_DOC_KEYS[k]] = k; });
+    return rev;
+  })();
+
+  function apiRequestBody(d) {
+    var s = d.s;
+
+    // نبني documents بأسماء الحقول الأربعة التي يتوقعها الـFastAPI فعلاً
+    // (passport / insurance / license / vehicle_inspection)، مبنية من قيم النموذج الحالية،
+    // بدلاً من مفاتيح مُهيأ الداخلية (driver_license, periodic_inspection...) التي لا يعرفها الـbackend.
+    var valuesByKey = {};
+    d.readiness.items.forEach(function (i) {
+      valuesByKey[i.key] = (i.value === undefined || i.value === "" ? null : i.value);
+    });
+
+    var docs = {
+      passport: valuesByKey.passport !== undefined ? valuesByKey.passport : null,
+      insurance: valuesByKey.vehicle_insurance !== undefined ? valuesByKey.vehicle_insurance : null,
+      license: valuesByKey.driver_license !== undefined ? valuesByKey.driver_license : null,
+      vehicle_inspection: valuesByKey.periodic_inspection !== undefined ? valuesByKey.periodic_inspection : null
+    };
+
+    // إذا اختار المستخدم جواز السفر كوثيقة سفره، تاريخ انتهائه محفوظ في document_expiry_date
+    // (لأن passport من نوع src: "traveler" ولا يظهر في شاشة الوثائق المنفصلة) — نعكسه هنا صراحة.
+    if (s.docType === "passport" && !docs.passport) {
+      docs.passport = s.docExpiry || null;
+    }
+
+    return {
+      destination: s.destKey,
+      crossing: s.crossing,
+      nationality: s.nationality,
+      document_type: s.docType,
+      document_number: s.docNumber,
+      date_of_birth: s.dob,
+      document_issue_date: s.docIssue,
+      document_expiry_date: s.docExpiry,
+      travel_date: s.date,
+      arrival_time: s.time,
+      travel_mode: s.mode,
+      vehicle_type: s.mode === "car" ? s.vehicleType : null,
+      vehicle_ownership: s.mode !== "car" ? null
+        : s.vehicleType === "personal" ? "owner"
+        : s.vehicleType === "rented" ? "rented" : "authorized",
+      documents: docs
+    };
+  }
+
+  function buildApiPayload(d) {
+    var r = d.readiness;
+    return {
+      endpoint: "POST " + (API_BASE || "") + API_PATH,
+      headers: API_HEADERS,
+      request: apiRequestBody(d),
+      response: {
+        readiness_score: r.score,
+        readiness_level: r.level,
+        requirements_total: r.total,
+        requirements_met: r.met,
+        required_documents: r.items.map(function (i) {
+          return {
+            key: i.key,
+            required_because: i.because,
+            status: i.status,
+            expires_on: i.type === "date" ? (i.value || null) : null,
+            days_to_travel: (i.days === undefined ? null : i.days),
+            min_validity_days_after_travel: i.type === "date" ? i.grace : null,
+            credit: i.credit
+          };
+        }),
+        missing: r.gaps.map(function (i) { return i.key; }),
+        traffic: {
+          crossing_id: d.s.crossing,
+          travel_date: d.s.date,
+          arrival_time: d.s.time,
+          predicted_wait_minutes: d.nowWait,
+          level: d.nowBand,
+          hourly_forecast: d.curve
+        },
+        recommendation: {
+          best_window: pad(d.best.hour) + ":00-" + pad((d.best.hour + 1) % 24) + ":00",
+          predicted_wait_minutes: d.best.wait,
+          time_saved_minutes: d.best.saved,
+          actions: r.gaps.map(function (i) { return "resolve_" + i.key; })
+        },
+        source: d.s.source,
+        models: { traffic: "gbdt-wait-v1", rules: "req-rules-v2" }
+      }
+    };
+  }
+
+  /* ============ 8b. تطبيع استجابة الـ backend الحقيقي على نموذج readiness المحلي ============ */
+
+  // يحوّل استجابة /api/check-readiness الحقيقية إلى نفس شكل runReadiness() المحلي
+  // حتى تُستخدم كل شاشات النتائج الحالية دون أي تعديل عليها.
+  function normalizeApiResponse(apiData, s) {
+    var localReq = determineRequirements(s); // نفس قائمة المتطلبات ونفس نص "لماذا" المحلي
+
+    var items = localReq.map(function (r) {
+      var def = REQ[r.key];
+      var value = valueFor(r.key, s); // تاريخ الانتهاء الفعلي الذي أدخلته المستخدمة (من state مباشرة)
+
+      // حالة الوثيقة (سارية / منتهية / ناقصة) تُحدَّد حصراً من expiry_date مقابل travel_date،
+      // بنفس منطق evaluate() المستخدم في خطوة 4/4 — بغض النظر عن نص document_status القادم من الـbackend.
+      // الـmapping بين أسماء الوثائق (BACKEND_DOC_KEYS) يُستخدم فقط في apiRequestBody() لتحديد
+      // "أي وثيقة" نتحدث عنها عند الإرسال، وليس لتحديد حالتها هنا.
+      var ev = evaluate(r.key, s);
+      var status = ev.status;
+
+      return {
+        key: r.key,
+        because: r.because,
+        type: def.type,
+        src: def.src || null,
+        grace: graceFor(def, s),
+        value: value,
+        status: status,
+        days: (def.type === "date" && value) ? daysBetween(s.date, value) : undefined,
+        credit: CREDIT[status] !== undefined ? CREDIT[status] : 0,
+        reason: ev[isRTL() ? "reasonAr" : "reasonEn"]
+      };
+    });
+
+    var total = (typeof apiData.requirements_total === "number") ? apiData.requirements_total : items.length;
+    var met = (typeof apiData.requirements_met === "number") ? apiData.requirements_met : items.filter(function (i) { return i.status === "valid"; }).length;
+    var score = (typeof apiData.readiness_score === "number") ? apiData.readiness_score : (total ? Math.round((met / total) * 100) : 0);
+    var level = apiData.readiness_level || (score >= 85 ? "high" : score >= 60 ? "medium" : "low");
+
+    return {
+      items: items,
+      total: total,
+      met: met,
+      score: score,
+      level: level,
+      gaps: items.filter(function (i) { return i.status !== "valid"; }),
+      entered: items.filter(function (i) { return i.status !== "missing"; }).length
+    };
+  }
+
+  /* ============ 9. النصوص ============ */
+
+  var T = {
+    ar: {
+      brand: "مُهيّأ",
+      homeTitle: "رحلتك تبدأ بخطوة… كن مُهيأ.",
+      homeDesc: "مُهيأ يساعدك على معرفة متطلبات رحلتك والاستعداد لها بسهولة، قبل موعد السفر.",
+      getStarted: "ابدأ الآن",
+      howItWorks: "كيف يعمل مُهيأ؟",
+      s1: "أدخل بياناتك ووثيقة سفرك",
+      s2: "أخبرنا عن رحلتك ووسيلة سفرك",
+      s3: "يحدد مُهيأ المتطلبات التي تنطبق عليك",
+      s4: "يتحقق من وثائقك ويحسب جاهزيتك",
+      privacyTitle: "خصوصيتك تهمنا",
+      privacyText: "نحن نهتم بخصوصيتك. صُمم مُهيأ ليستخدم المعلومات اللازمة لتقديم تجربة مناسبة لك، مع الحرص على حماية بياناتك وعدم طلب معلومات غير ضرورية.",
+      startTitle: "لنبدأ رحلتك",
+      startDesc: "اختر طريقة المتابعة للاطلاع على جاهزية رحلتك.",
+      continueBtn: "متابعة",
+      guestBtn: "المتابعة كزائر",
+      nafathBtn: "الدخول عبر نفاذ",
+      demoNote: "نموذج أولي للعرض فقط — لا يتم جمع أو حفظ أي بيانات.",
+
+      stepOf: "الخطوة",
+      of: "من",
+
+      travelerTitle: "بياناتك",
+      travelerDesc: "يحتاج مُهيأ هذه البيانات ليحدد الوثائق المطلوبة لرحلتك، ولا يطلب أكثر منها.",
+      nationality: "الجنسية",
+      dob: "تاريخ الميلاد",
+      docType: "نوع وثيقة السفر",
+      docPassport: "جواز سفر",
+      docNational: "هوية وطنية",
+      docNumber: "رقم الوثيقة",
+      docIssue: "تاريخ إصدار الوثيقة",
+      docExpiry: "تاريخ انتهاء الوثيقة",
+      nonGccNote: "الجنسيات غير الخليجية تعبر بجواز السفر، لذلك تم تثبيت نوع الوثيقة على جواز سفر.",
+      ageNote: "العمر في تاريخ السفر",
+      year: "سنة",
+
+      tripTitle: "رحلتك",
+      tripDesc: "الوجهة والمنفذ وتاريخ السفر تحدد المتطلبات ومستوى الازدحام المتوقع.",
+      destination: "الدولة الوجهة",
+      crossing: "منفذ العبور",
+      tripDate: "تاريخ السفر",
+      arrivalTime: "وقت الوصول المتوقع",
+
+      modeTitle: "وسيلة سفرك",
+      modeDesc: "تختلف المتطلبات كلياً بين السيارة الخاصة والنقل الجماعي.",
+      modeQuestion: "كيف ستسافر؟",
+      modeCar: "سيارة خاصة",
+      modeBus: "نقل جماعي",
+      vehicleQuestion: "ما نوع السيارة؟",
+      vPersonal: "سيارة شخصية",
+      vRented: "سيارة مستأجرة",
+      vAuthorized: "سيارة بتفويض",
+      busQuestion: "نوع النقل الجماعي",
+      busCoach: "حافلة",
+
+      docsTitle: "وثائق رحلتك",
+      docsDesc: "هذه هي المتطلبات التي تنطبق على حالتك تحديداً. أدخل تاريخ انتهاء كل وثيقة ليتحقق مُهيأ منها.",
+      basedOn: "حُددت بناءً على",
+      whyRequired: "لماذا هذا المتطلب؟",
+      fromTraveler: "مأخوذ من بياناتك في الخطوة الأولى",
+      entered: "المُدخل",
+      requirement: "متطلب",
+      requirements: "متطلبات",
+      notEnteredNote: "المتطلبات التي لم تُدخل بياناتها ستظهر بحالة ناقص، ولن تُحتسب ضمن الجاهزية.",
+      available: "متوفر",
+      notAvailable: "غير متوفر",
+      startCheck: "ابدأ الفحص",
+      checkingApi: "جاري الاتصال بالخادم...",
+
+      checkingTitle: "جاري التحقق من جاهزية رحلتك",
+      checkingDesc: "نطابق تاريخ سفرك مع تاريخ انتهاء كل وثيقة مطلوبة، ثم نشغّل نموذج التنبؤ بالازدحام.",
+
+      apiErrorTitle: "تعذّر الاتصال بالخادم",
+      apiErrorDesc: "لم نتمكن من الوصول إلى خادم التحقق حالياً. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
+      retry: "إعادة المحاولة",
+
+      resultTitle: "نتيجة جاهزيتك",
+      high: "جاهزية عالية",
+      medium: "جاهزية متوسطة",
+      low: "جاهزية منخفضة",
+      scoreBasis: "محسوبة من المتطلبات المطلوبة لهذه الرحلة فقط",
+      metOf: "المستوفى",
+      tapForReason: "اضغط على أي متطلب لمعرفة سبب حالته",
+      valid: "ساري",
+      soon: "يحتاج تحقق",
+      expired: "منتهي",
+      missing: "ناقص",
+      tripInfo: "ملخص الرحلة",
+      travelMode: "وسيلة السفر",
+      vehicleType: "نوع المركبة",
+      sourceLocal: "محرك محلي",
+      sourceServer: "استجابة الخادم",
+      resultSource: "مصدر النتيجة",
+
+      trafficTitle: "توقعات الازدحام في",
+      trafficSub: "زمن الانتظار المتوقع بالدقائق خلال 24 ساعة",
+      trafficBasis: "يعتمد على تاريخ السفر ووقت الوصول ومنفذ العبور ووسيلة السفر",
+      waitNow: "زمن الانتظار المتوقع",
+      min: "دقيقة",
+      congLow: "ازدحام منخفض",
+      congMedium: "ازدحام متوسط",
+      congHigh: "ازدحام مرتفع",
+      bestWindow: "أفضل وقت بديل",
+      saves: "توفير",
+      peakToday: "أعلى ازدحام اليوم",
+
+      recoTitle: "توصيتنا لك",
+      rulesTitle: "لماذا طُلبت هذه المتطلبات؟",
+      rulesDesc: "هذه هي القواعد التي طبّقها مُهيأ على بياناتك لاستخراج قائمة متطلباتك.",
+      inputs: "المدخلات",
+
+      apiTitle: "مخرجات الواجهة البرمجية",
+      apiNote: "المحرك يعمل داخل المتصفح في هذا النموذج. لربط خادم فعلي، ضع عنوانه في المتغير API_BASE أعلى وسم script داخل هذا الملف وسيُرسل الطلب تلقائياً مع الهيدر أدناه.",
+      requestBody: "جسم الطلب",
+      responseBody: "الاستجابة",
+      viewApi: "عرض استجابة API",
+
+      next: "التالي",
+      back: "رجوع",
+      home: "الرئيسية",
+      newCheck: "فحص جديد",
+      theme: "المظهر",
+      language: "اللغة",
+      footer: "رحلتك تبدأ بخطوة."
+    },
+    en: {
+      brand: "Muhayya",
+      homeTitle: "Your journey starts with one step. Be Muhayya.",
+      homeDesc: "Muhayya helps you understand your trip requirements and get ready easily, before your travel date.",
+      getStarted: "Get Started",
+      howItWorks: "How Muhayya Works",
+      s1: "Enter your details and travel document",
+      s2: "Tell us about your trip and travel method",
+      s3: "Muhayya determines the requirements that apply to you",
+      s4: "It verifies your documents and computes your readiness",
+      privacyTitle: "Your Privacy Matters",
+      privacyText: "We care about your privacy. Muhayya is designed to use only the information needed to give you a relevant experience, while protecting your data and never asking for unnecessary details.",
+      startTitle: "Let's start your journey",
+      startDesc: "Choose how you'd like to continue to your readiness check.",
+      continueBtn: "Continue",
+      guestBtn: "Continue as guest",
+      nafathBtn: "Sign in with Nafath",
+      demoNote: "Visual prototype only — no data is collected or stored.",
+
+      stepOf: "Step",
+      of: "of",
+
+      travelerTitle: "Your details",
+      travelerDesc: "Muhayya needs these to decide which documents your trip requires, and asks for nothing more.",
+      nationality: "Nationality",
+      dob: "Date of birth",
+      docType: "Travel document type",
+      docPassport: "Passport",
+      docNational: "National ID",
+      docNumber: "Document number",
+      docIssue: "Document issue date",
+      docExpiry: "Document expiry date",
+      nonGccNote: "Non-GCC nationalities cross with a passport, so the document type is fixed to passport.",
+      ageNote: "Age on the travel date",
+      year: "years",
+
+      tripTitle: "Your trip",
+      tripDesc: "Destination, crossing and travel date drive both the requirements and the expected congestion.",
+      destination: "Destination country",
+      crossing: "Border crossing",
+      tripDate: "Travel date",
+      arrivalTime: "Expected arrival time",
+
+      modeTitle: "Your travel method",
+      modeDesc: "Requirements differ completely between a private car and public transport.",
+      modeQuestion: "How will you travel?",
+      modeCar: "Private car",
+      modeBus: "Public transport",
+      vehicleQuestion: "What type of car?",
+      vPersonal: "Own car",
+      vRented: "Rented car",
+      vAuthorized: "Authorised car",
+      busQuestion: "Type of public transport",
+      busCoach: "Bus",
+
+      docsTitle: "Your trip documents",
+      docsDesc: "These are the requirements that apply to your specific case. Enter each expiry date so Muhayya can verify it.",
+      basedOn: "Determined from",
+      whyRequired: "Why is this required?",
+      fromTraveler: "Taken from your details in step one",
+      entered: "Entered",
+      requirement: "requirement",
+      requirements: "requirements",
+      notEnteredNote: "Requirements left empty will show as missing and will not count towards readiness.",
+      available: "Available",
+      notAvailable: "Not available",
+      startCheck: "Start Check",
+      checkingApi: "Connecting to server...",
+
+      checkingTitle: "Checking your trip readiness",
+      checkingDesc: "Matching your travel date against every required document expiry, then running the congestion model.",
+
+      apiErrorTitle: "Could not reach the server",
+      apiErrorDesc: "We couldn't connect to the readiness server right now. Check your connection and try again.",
+      retry: "Retry",
+
+      resultTitle: "Your Readiness Result",
+      high: "High readiness",
+      medium: "Medium readiness",
+      low: "Low readiness",
+      scoreBasis: "Computed only from the requirements this trip actually needs",
+      metOf: "Met",
+      tapForReason: "Tap any requirement to see why it has that status",
+      valid: "Valid",
+      soon: "Needs check",
+      expired: "Expired",
+      missing: "Missing",
+      tripInfo: "Trip summary",
+      travelMode: "Travel method",
+      vehicleType: "Vehicle type",
+      sourceLocal: "Local engine",
+      sourceServer: "Server response",
+      resultSource: "Result source",
+
+      trafficTitle: "Traffic Forecast at",
+      trafficSub: "Predicted wait in minutes across 24 hours",
+      trafficBasis: "Based on travel date, arrival time, border crossing and travel method",
+      waitNow: "Predicted wait",
+      min: "min",
+      congLow: "Low congestion",
+      congMedium: "Medium congestion",
+      congHigh: "High congestion",
+      bestWindow: "Best alternative time",
+      saves: "Saves",
+      peakToday: "Today's peak",
+
+      recoTitle: "Our Recommendation",
+      rulesTitle: "Why these requirements?",
+      rulesDesc: "These are the rules Muhayya applied to your data to derive your requirement list.",
+      inputs: "Inputs",
+
+      apiTitle: "API Output",
+      apiNote: "The engine runs in the browser in this prototype. To connect a real server, set its address in the API_BASE variable at the top of the script tag in this file and the request will be sent automatically with the header below.",
+      requestBody: "Request body",
+      responseBody: "Response",
+      viewApi: "View API response",
+
+      next: "Next",
+      back: "Back",
+      home: "Home",
+      newCheck: "New Check",
+      theme: "Theme",
+      language: "Language",
+      footer: "Your journey starts with one step."
+    }
+  };
+
+  /* ============ 10. الحالة والمساعدات ============ */
+
+  var M_AR = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+  var M_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  function pad(n) { return String(n).length < 2 ? "0" + n : String(n); }
+
+  function esc(v) {
+    return String(v === null || v === undefined ? "" : v)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function fmtDate(v, lang) {
+    var p = String(v || "").split("-");
+    if (p.length !== 3) return v || "";
+    var names = lang === "ar" ? M_AR : M_EN;
+    return parseInt(p[2], 10) + " " + (names[parseInt(p[1], 10) - 1] || p[1]) + " " + p[0];
+  }
+
+  function fmtHour(h, lang) {
+    var hh = ((h % 24) + 24) % 24;
+    var pm = hh >= 12, h12 = hh % 12;
+    if (h12 === 0) h12 = 12;
+    return h12 + ":00 " + (lang === "ar" ? (pm ? "م" : "ص") : (pm ? "PM" : "AM"));
+  }
+
+  function fmtTime(v, lang) {
+    var p = String(v || "").split(":");
+    if (p.length < 2) return v || "";
+    var h = parseInt(p[0], 10), pm = h >= 12, h12 = h % 12;
+    if (h12 === 0) h12 = 12;
+    return h12 + ":" + p[1] + " " + (lang === "ar" ? (pm ? "مساءً" : "صباحًا") : (pm ? "PM" : "AM"));
+  }
+
+  var state = {
+    lang: "ar",
+    theme: "dark",
+    screen: "home",
+
+    nationality: "sa",
+    dob: "1999-04-12",
+    docType: "national_id",
+    docNumber: "1098765432",
+    docIssue: "2021-05-02",
+    docExpiry: "2031-05-01",
+
+    destKey: "bh",
+    crossing: "kfc",
+    date: "2026-09-15",
+    time: "20:00",
+
+    mode: "car",
+    vehicleType: "personal",
+    busType: "coach",
+
+    docs: {
+      driver_license: "2028-03-11",
+      vehicle_registration: "2027-01-30",
+      vehicle_insurance: "2026-08-01",
+      periodic_inspection: "2027-03-05",
+      resident_id: "",
+      exit_reentry: "",
+      rental_contract: "",
+      rental_permit: "",
+      authorization: "",
+      minor_consent: false,
+      bus_ticket: false
+    },
+
+    openReq: null,
+    source: "local",
+
+    // نتيجة الـbackend الحقيقي (تبقى null حتى ينجح نداء API)
+    apiResult: null,
+    apiError: null,
+    isChecking: false
+  };
+
+  var checkTimer = null;
+
+  function t(k) { return (T[state.lang] && T[state.lang][k]) || k; }
+  function isRTL() { return state.lang === "ar"; }
+  function L(o) { return isRTL() ? o.ar : o.en; }
+
+  function currentCrossing() {
+    var list = DESTS[state.destKey].crossings;
+    for (var i = 0; i < list.length; i++) if (list[i].id === state.crossing) return list[i];
+    return list[0];
+  }
+
+  function compute() {
+    var cr = currentCrossing();
+
+    // إذا توفرت نتيجة من الـbackend الحقيقي نستخدمها كمصدر أساسي للـtraffic أيضاً،
+    // وإلا نستخدم نموذج التنبؤ المحلي كما كان.
+    var curve, arrHour, nowWait, nowBand, best, peakHour;
+    arrHour = Math.min(23, Math.max(0, parseInt(String(state.time).split(":")[0], 10) || 0));
+
+    var api = state.apiResult;
+
+    if (api && Array.isArray(api.hourly_forecast) && api.hourly_forecast.length === 24) {
+      curve = api.hourly_forecast;
+    } else {
+      curve = predictWaitCurve(cr.f, MODE_FACTOR[state.mode] || 1, state.date);
+    }
+
+    if (api && typeof api.expected_wait_minutes === "number") {
+      nowWait = api.expected_wait_minutes;
+    } else {
+      nowWait = curve[arrHour];
+    }
+
+    nowBand = (api && api.traffic_level) ? api.traffic_level : waitBand(nowWait);
+    best = findBestWindow(curve, arrHour, 5);
+
+    // إن أرسل الـbackend وقتاً موصى به كنص (مثال "18:00")، نحوله لساعة لعرضه في نفس مكوّن best window
+    if (api && typeof api.recommended_time === "string") {
+      var rh = parseInt(api.recommended_time.split(":")[0], 10);
+      if (!isNaN(rh)) {
+        best = {
+          hour: rh,
+          wait: curve[Math.min(23, Math.max(0, rh))],
+          saved: Math.max(0, nowWait - curve[Math.min(23, Math.max(0, rh))]),
+          worthIt: rh !== arrHour
+        };
+      }
+    }
+
+    peakHour = curve.indexOf(Math.max.apply(null, curve));
+
+    var readiness = api ? normalizeApiResponse(api, state) : runReadiness(state);
+
+    var d = {
+      s: state,
+      readiness: readiness,
+      curve: curve,
+      arrHour: arrHour,
+      nowWait: nowWait,
+      nowBand: nowBand,
+      best: best,
+      peakHour: peakHour,
+      destName: L(DESTS[state.destKey]),
+      crossingName: L(cr),
+      apiRecommendationText: (api && api.recommendation) ? api.recommendation : null
+    };
+    d.api = buildApiPayload(d);
+    return d;
+  }
+
+  /* ============ الأيقونات ============ */
+
+  var ICON = {
+    logo: function (size) {
+      return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" ' +
+        'stroke="#10B981" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M12 2.8l7.2 3.1v5.6c0 4.6-3.1 7.9-7.2 9.3-4.1-1.4-7.2-4.7-7.2-9.3V5.9z"/>' +
+        '<path d="M8.7 12.1l2.3 2.3 4.3-4.7"/></svg>';
+    },
+    arrow: function () {
+      return '<svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" ' +
+        'stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    },
+    shield: function () {
+      return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+        'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M12 21.5s-7.5-4.2-7.5-11V5l7.5-2.8L19.5 5v5.5c0 6.8-7.5 11-7.5 11z"/></svg>';
+    },
+    warn: function () {
+      return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0" aria-hidden="true">' +
+        '<path d="M12 3.5 21.5 20h-19z"/><path d="M12 9.6v4.6M12 17.1h.01"/></svg>';
+    },
+    bulb: function () {
+      return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+        'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M9.5 18h5M10.5 21h3"/>' +
+        '<path d="M12 3a6.4 6.4 0 0 0-3.7 11.6c.5.4.8 1 .8 1.6h5.8c0-.6.3-1.2.8-1.6A6.4 6.4 0 0 0 12 3z"/></svg>';
+    }
+  };
+
+  /* ============ عناصر صغيرة ============ */
+
+  function chip(tone, text) { return '<span class="chip chip--' + tone + '">' + esc(text) + '</span>'; }
+
+  function step(n, text) {
+    return '<div class="step"><div class="step__n">' + n + '</div>' +
+           '<span class="step__t">' + esc(text) + '</span></div>';
+  }
+
+  function tile(icon, value, name) {
+    return '<div class="tile"><span class="tile__i">' + icon + '</span><div class="tile__b">' +
+           '<div class="tile__v">' + esc(value) + '</div>' +
+           '<div class="tile__n">' + esc(name) + '</div></div></div>';
+  }
+
+  function stepbar(n, total) {
+    return '<div class="stepbar">' +
+      '<span class="stepbar__t">' + esc(t("stepOf")) + ' ' + n + ' ' + esc(t("of")) + ' ' + total + '</span>' +
+      '<span class="stepbar__bar"><span class="stepbar__fill" style="width:' + Math.round((n / total) * 100) + '%"></span></span>' +
+    '</div>';
+  }
+
+  function nav(backTo, nextTo, nextLabel) {
+    var html = '<div class="row row--top">' +
+      '<button class="btn btn--ghost f1" data-act="go" data-go="' + backTo + '">' + esc(t("back")) + '</button>';
+    if (nextTo) {
+      html += '<button class="btn btn--primary btn--row f15" data-act="go" data-go="' + nextTo + '">' +
+              '<span>' + esc(nextLabel || t("next")) + '</span>' + ICON.arrow() + '</button>';
+    }
+    return html + '</div>';
+  }
+
+  function statusTone(s) {
+    return s === "valid" ? "ok" : s === "expired" ? "bad" : "warn";
+  }
+
+  function statusMark(s) {
+    return s === "valid" ? "✓" : s === "expired" ? "✕" : "!";
+  }
+
+  function segmented(field, options, current) {
+    return options.map(function (o) {
+      var on = current === o.id ? " is-on" : "";
+      return '<button class="btn mode' + on + '" data-act="set" data-field="' + field + '" data-value="' + o.id + '">' +
+        (o.icon ? '<span class="mode__i">' + o.icon + '</span>' : "") +
+        '<span>' + esc(o.label) + '</span></button>';
+    }).join("");
+  }
+
+  /* ============ 11. الشاشات ============ */
+
+  var S = {};
+
+  S.home = function () {
+    return '<div class="stack">' +
+      '<div class="card card--hero">' +
+        '<div class="badge">' + ICON.logo(32) + '</div>' +
+        '<div class="brandname">' + esc(t("brand")) + '</div>' +
+        '<h1 class="h1" style="margin-bottom:12px">' + esc(t("homeTitle")) + '</h1>' +
+        '<p class="p" style="margin-bottom:22px">' + esc(t("homeDesc")) + '</p>' +
+        '<div class="stack" style="gap:10px">' +
+          '<button class="btn btn--primary btn--row" data-act="go" data-go="start">' +
+            '<span>' + esc(t("getStarted")) + '</span>' + ICON.arrow() + '</button>' +
+          '<button class="btn btn--brand" data-act="go" data-go="how">' + esc(t("howItWorks")) + '</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card">' +
+        '<h2 class="h2" style="margin-bottom:6px">' + esc(t("howItWorks")) + '</h2>' +
+        step(1, t("s1")) + step(2, t("s2")) + step(3, t("s3")) + step(4, t("s4")) +
+      '</div>' +
+      '<div class="card split">' +
+        '<div class="icon-box" style="color:var(--brand-ink)">' + ICON.shield() + '</div>' +
+        '<div class="split__body">' +
+          '<h2 class="h2 h2--sm" style="margin-bottom:8px">' + esc(t("privacyTitle")) + '</h2>' +
+          '<p class="p">' + esc(t("privacyText")) + '</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  };
+
+  S.how = function () {
+    return '<div class="stack">' +
+      '<div class="card">' +
+        '<h1 class="h1" style="margin-bottom:8px">' + esc(t("howItWorks")) + '</h1>' +
+        '<p class="p">' + esc(t("homeDesc")) + '</p>' +
+      '</div>' +
+      '<div class="card">' + step(1, t("s1")) + step(2, t("s2")) + step(3, t("s3")) + step(4, t("s4")) + '</div>' +
+      '<div class="stack" style="gap:10px">' +
+        '<button class="btn btn--primary btn--row" data-act="go" data-go="start">' +
+          '<span>' + esc(t("getStarted")) + '</span>' + ICON.arrow() + '</button>' +
+        '<button class="btn btn--ghost" data-act="go" data-go="home">' + esc(t("back")) + '</button>' +
+      '</div>' +
+    '</div>';
+  };
+
+  S.start = function () {
+    return '<div class="stack">' +
+      '<div class="card card--hero">' +
+        '<div class="badge badge--sm">' + ICON.logo(28) + '</div>' +
+        '<h1 class="h1" style="margin-bottom:10px">' + esc(t("startTitle")) + '</h1>' +
+        '<p class="p" style="margin-bottom:22px">' + esc(t("startDesc")) + '</p>' +
+        '<div class="stack" style="gap:10px">' +
+          '<button class="btn btn--primary" data-act="go" data-go="traveler">' + esc(t("continueBtn")) + '</button>' +
+          '<button class="btn btn--ghost"   data-act="go" data-go="traveler">' + esc(t("guestBtn")) + '</button>' +
+          '<button class="btn btn--brand"   data-act="go" data-go="traveler">' + esc(t("nafathBtn")) + '</button>' +
+        '</div>' +
+        '<p class="p p--xs" style="margin-top:18px">' + esc(t("demoNote")) + '</p>' +
+      '</div>' +
+      '<button class="btn btn--ghost" data-act="go" data-go="home">' + esc(t("back")) + '</button>' +
+    '</div>';
+  };
+
+  /* ---- الخطوة 1: بياناتك ---- */
+  S.traveler = function () {
+    var nat = nationalityOf(state.nationality);
+    var age = ageAtTravel(state.dob, state.date);
+
+    var natOptions = NATIONALITIES.map(function (n) {
+      return '<option value="' + n.id + '"' + (state.nationality === n.id ? " selected" : "") + '>' + esc(L(n)) + '</option>';
+    }).join("");
+
+    var docTypeBlock = nat.gcc
+      ? '<div class="grid2b">' + segmented("docType", [
+          { id: "passport",    label: t("docPassport") },
+          { id: "national_id", label: t("docNational") }
+        ], state.docType) + '</div>'
+      : '<div class="grid2b">' + segmented("docType", [
+          { id: "passport", label: t("docPassport") }
+        ], "passport") + '</div>' +
+        '<div class="why">' + esc(t("nonGccNote")) + '</div>';
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        stepbar(1, 4) +
+        '<h1 class="h1" style="margin:10px 0">' + esc(t("travelerTitle")) + '</h1>' +
+        '<p class="p">' + esc(t("travelerDesc")) + '</p>' +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="mb20">' +
+          '<label class="label" for="natSel">' + esc(t("nationality")) + '</label>' +
+          '<select class="field" id="natSel" data-field="nationality">' + natOptions + '</select>' +
+        '</div>' +
+
+        '<div class="mb20">' +
+          '<label class="label" for="dobIn">' + esc(t("dob")) + '</label>' +
+          '<input type="date" class="field" id="dobIn" data-field="dob" value="' + esc(state.dob) + '">' +
+          '<div class="hint">' + esc(t("ageNote")) + ': ' + (age >= 0 ? age + " " + esc(t("year")) : "—") + '</div>' +
+        '</div>' +
+
+        '<div class="mb20">' +
+          '<span class="label">' + esc(t("docType")) + '</span>' +
+          docTypeBlock +
+        '</div>' +
+
+        '<div class="mb20">' +
+          '<label class="label" for="docNum">' + esc(t("docNumber")) + '</label>' +
+          '<input type="text" inputmode="numeric" class="field" id="docNum" data-field="docNumber" value="' + esc(state.docNumber) + '">' +
+        '</div>' +
+
+        '<div class="mb20">' +
+          '<label class="label" for="docIss">' + esc(t("docIssue")) + '</label>' +
+          '<input type="date" class="field" id="docIss" data-field="docIssue" value="' + esc(state.docIssue) + '">' +
+        '</div>' +
+
+        '<div>' +
+          '<label class="label" for="docExp">' + esc(t("docExpiry")) + '</label>' +
+          '<input type="date" class="field" id="docExp" data-field="docExpiry" value="' + esc(state.docExpiry) + '">' +
+          '<div class="hint">' + esc(fmtDate(state.docExpiry, state.lang)) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      nav("start", "trip") +
+    '</div>';
+  };
+
+  /* ---- الخطوة 2: رحلتك ---- */
+  S.trip = function () {
+    var destOptions = Object.keys(DESTS).map(function (k) {
+      return '<option value="' + k + '"' + (state.destKey === k ? " selected" : "") + '>' + esc(L(DESTS[k])) + '</option>';
+    }).join("");
+
+    var crossOptions = DESTS[state.destKey].crossings.map(function (c) {
+      return '<option value="' + c.id + '"' + (state.crossing === c.id ? " selected" : "") + '>' + esc(L(c)) + '</option>';
+    }).join("");
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        stepbar(2, 4) +
+        '<h1 class="h1" style="margin:10px 0">' + esc(t("tripTitle")) + '</h1>' +
+        '<p class="p">' + esc(t("tripDesc")) + '</p>' +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="mb20">' +
+          '<label class="label" for="destSel">' + esc(t("destination")) + '</label>' +
+          '<select class="field" id="destSel" data-field="destKey">' + destOptions + '</select>' +
+        '</div>' +
+        '<div class="mb20">' +
+          '<label class="label" for="crossSel">' + esc(t("crossing")) + '</label>' +
+          '<select class="field" id="crossSel" data-field="crossing">' + crossOptions + '</select>' +
+        '</div>' +
+        '<div class="mb20">' +
+          '<label class="label" for="dateIn">' + esc(t("tripDate")) + '</label>' +
+          '<input type="date" class="field" id="dateIn" data-field="date" value="' + esc(state.date) + '">' +
+          '<div class="hint">' + esc(fmtDate(state.date, state.lang)) + '</div>' +
+        '</div>' +
+        '<div>' +
+          '<label class="label" for="timeIn">' + esc(t("arrivalTime")) + '</label>' +
+          '<input type="time" class="field" id="timeIn" data-field="time" value="' + esc(state.time) + '">' +
+          '<div class="hint">' + esc(fmtTime(state.time, state.lang)) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      nav("traveler", "mode") +
+    '</div>';
+  };
+
+  /* ---- الخطوة 3: وسيلة سفرك ---- */
+  S.mode = function () {
+    var sub = state.mode === "car"
+      ? '<div>' +
+          '<span class="label">' + esc(t("vehicleQuestion")) + '</span>' +
+          '<div class="grid3">' + segmented("vehicleType", [
+            { id: "personal",   label: t("vPersonal"),   icon: "🚗" },
+            { id: "rented",     label: t("vRented"),     icon: "🔑" },
+            { id: "authorized", label: t("vAuthorized"), icon: "📄" }
+          ], state.vehicleType) + '</div>' +
+        '</div>'
+      : '<div>' +
+          '<span class="label">' + esc(t("busQuestion")) + '</span>' +
+          '<div class="grid2b">' + segmented("busType", [
+            { id: "coach", label: t("busCoach"), icon: "🚌" }
+          ], state.busType) + '</div>' +
+        '</div>';
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        stepbar(3, 4) +
+        '<h1 class="h1" style="margin:10px 0">' + esc(t("modeTitle")) + '</h1>' +
+        '<p class="p">' + esc(t("modeDesc")) + '</p>' +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="mb20">' +
+          '<span class="label">' + esc(t("modeQuestion")) + '</span>' +
+          '<div class="grid2b">' + segmented("mode", [
+            { id: "car", label: t("modeCar"), icon: "🚗" },
+            { id: "bus", label: t("modeBus"), icon: "🚌" }
+          ], state.mode) + '</div>' +
+        '</div>' +
+        sub +
+      '</div>' +
+
+      nav("trip", "docs") +
+    '</div>';
+  };
+
+  /* ---- الخطوة 4: وثائق رحلتك ---- */
+  S.docs = function (d) {
+    var r = d.readiness;
+    var nat = nationalityOf(state.nationality);
+
+    var basis = [
+      L(nat),
+      d.destName,
+      state.docType === "passport" ? t("docPassport") : t("docNational"),
+      state.mode === "car" ? t("modeCar") : t("modeBus"),
+      state.mode === "car"
+        ? (state.vehicleType === "personal" ? t("vPersonal") : state.vehicleType === "rented" ? t("vRented") : t("vAuthorized"))
+        : t("busCoach")
+    ].map(function (x) { return chip("mute", x); }).join("");
+
+    var fields = r.items.map(function (i) {
+      var def = REQ[i.key];
+      var name = L(def);
+      var body;
+
+      if (def.src === "traveler") {
+        body = '<div class="ref">' +
+          '<span class="tile__i">🪪</span>' +
+          '<div class="tile__b"><div class="tile__v">' + esc(fmtDate(i.value, state.lang) || "—") + '</div>' +
+          '<div class="tile__n">' + esc(t("fromTraveler")) + '</div></div>' +
+        '</div>';
+      } else if (def.type === "bool") {
+        body = '<div class="grid2b">' + segmented("doc:" + i.key, [
+          { id: "yes", label: t("available") },
+          { id: "no",  label: t("notAvailable") }
+        ], state.docs[i.key] === true ? "yes" : "no") + '</div>';
+      } else {
+        body = '<input type="date" class="field" data-field="doc" data-key="' + i.key + '" value="' + esc(i.value || "") + '">';
+      }
+
+      return '<div class="docrow">' +
+        '<div class="doc__head">' +
+          '<span class="doc__name">' + esc(name) + '</span>' +
+          chip(statusTone(i.status), t(i.status)) +
+        '</div>' +
+        body +
+        '<div class="why">' + esc(t("whyRequired")) + ' ' + esc(i.because) + '</div>' +
+      '</div>';
+    }).join("");
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        stepbar(4, 4) +
+        '<h1 class="h1" style="margin:10px 0">' + esc(t("docsTitle")) + '</h1>' +
+        '<p class="p">' + esc(t("docsDesc")) + '</p>' +
+        '<div class="basis"><span class="basis__k">' + esc(t("basedOn")) + '</span>' + basis + '</div>' +
+        '<div class="why" style="margin-top:12px">' +
+          esc(t("entered")) + ': ' + r.entered + ' ' + esc(t("of")) + ' ' + r.total + ' ' +
+          esc(r.total === 1 ? t("requirement") : t("requirements")) + '. ' + esc(t("notEnteredNote")) +
+        '</div>' +
+      '</div>' +
+
+      '<div class="card">' + fields + '</div>' +
+
+      (state.apiError ? (
+        '<div class="card card--alert">' +
+          '<div class="alert__head">' + ICON.warn() + '<span class="alert__title">' + esc(t("apiErrorTitle")) + '</span></div>' +
+          '<p class="p p--sm">' + esc(state.apiError) + '</p>' +
+        '</div>'
+      ) : "") +
+
+      '<div class="row">' +
+        '<button class="btn btn--ghost f1" data-act="go" data-go="mode">' + esc(t("back")) + '</button>' +
+        '<button class="btn btn--primary btn--row f16" data-act="check"' + (state.isChecking ? " disabled" : "") + '>' +
+          (state.isChecking
+            ? '<span class="spinner spinner--sm"></span><span>' + esc(t("checkingApi")) + '</span>'
+            : '<span>' + esc(t("startCheck")) + '</span>' + ICON.arrow()) +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  };
+
+  S.checking = function () {
+    return '<div class="card card--check">' +
+      '<div class="spinner"></div>' +
+      '<h1 class="h1 h1--sm" style="margin-bottom:10px">' + esc(t("checkingTitle")) + '</h1>' +
+      '<p class="p">' + esc(t("checkingDesc")) + '</p>' +
+      '<div class="chips-row">' +
+        chip("mute", "req-rules-v2") + chip("mute", "gbdt-wait-v1") +
+      '</div>' +
+    '</div>';
+  };
+
+  S.checkError = function () {
+    return '<div class="stack">' +
+      '<div class="card card--alert">' +
+        '<div class="alert__head">' + ICON.warn() + '<span class="alert__title">' + esc(t("apiErrorTitle")) + '</span></div>' +
+        '<p class="p p--sm">' + esc(state.apiError || t("apiErrorDesc")) + '</p>' +
+      '</div>' +
+      '<div class="row">' +
+        '<button class="btn btn--ghost f1" data-act="go" data-go="docs">' + esc(t("back")) + '</button>' +
+        '<button class="btn btn--primary f15" data-act="check">' + esc(t("retry")) + '</button>' +
+      '</div>' +
+    '</div>';
+  };
+
+  S.result = function (d) {
+    var r = d.readiness;
+    var RAD = 70, CIRC = 2 * Math.PI * RAD;
+    var color = r.level === "high" ? "#10B981" : r.level === "medium" ? "#F5A524" : "#E5484D";
+
+    var ring =
+      '<div class="score">' +
+        '<svg width="180" height="180" viewBox="0 0 180 180" aria-hidden="true">' +
+          '<circle cx="90" cy="90" r="' + RAD + '" fill="none" stroke="var(--surface2)" stroke-width="13"/>' +
+          '<circle cx="90" cy="90" r="' + RAD + '" fill="none" stroke="' + color + '" stroke-width="13" ' +
+            'stroke-linecap="round" stroke-dasharray="' + CIRC.toFixed(2) + '" ' +
+            'stroke-dashoffset="' + (CIRC * (1 - r.score / 100)).toFixed(2) + '" transform="rotate(-90 90 90)"/>' +
+        '</svg>' +
+        '<div class="score__mid">' +
+          '<div class="score__num">' + r.score + '%</div>' +
+          '<div class="score__lbl">' + esc(t(r.level)) + '</div>' +
+        '</div>' +
+      '</div>';
+
+    var rows = r.items.map(function (i) {
+      var open = state.openReq === i.key;
+      var name = L(REQ[i.key]);
+      return '<div class="req__wrap">' +
+        '<button class="req__row req__btn" data-act="toggleReq" data-req="' + i.key + '">' +
+          '<span class="req__mark req__mark--' + statusTone(i.status) + '">' + statusMark(i.status) + '</span>' +
+          '<span class="req__b">' +
+            '<span class="req__name">' + esc(name) + '</span>' +
+            '<span class="req__meta">' + esc(t(i.status)) +
+              (i.type === "date" && i.value ? ' · ' + esc(fmtDate(i.value, state.lang)) : "") + '</span>' +
+          '</span>' +
+          chip(statusTone(i.status), t(i.status)) +
+        '</button>' +
+        (open ? '<div class="req__why">' + esc(i.reason) + '<br>' +
+                '<span class="req__why-k">' + esc(t("whyRequired")) + '</span> ' + esc(i.because) + '</div>' : "") +
+      '</div>';
+    }).join("");
+
+    return '<div class="stack">' +
+      '<h1 class="h1">' + esc(t("resultTitle")) + '</h1>' +
+
+      '<div class="card card--center">' + ring +
+        '<p class="p p--xs center" style="margin-top:8px">' + esc(t("scoreBasis")) + '</p>' +
+        '<div class="chips-row" style="margin-top:12px">' +
+          chip("mute", t("resultSource") + ": " + (state.source === "server" ? t("sourceServer") : t("sourceLocal"))) +
+        '</div>' +
+      '</div>' +
+
+      '<div class="card card--pad8">' +
+        '<div class="req__hint">' + esc(t("tapForReason")) + '</div>' +
+        rows +
+      '</div>' +
+
+      '<div class="card">' +
+        '<h2 class="h2 h2--xs" style="margin-bottom:14px">' + esc(t("tripInfo")) + '</h2>' +
+        '<div class="stack" style="gap:10px">' +
+          tile("📍", d.destName, t("destination")) +
+          tile("🛂", d.crossingName, t("crossing")) +
+          tile(state.mode === "car" ? "🚗" : "🚌",
+               state.mode === "car" ? t("modeCar") : t("modeBus"), t("travelMode")) +
+          (state.mode === "car"
+            ? tile("🔧", state.vehicleType === "personal" ? t("vPersonal") : state.vehicleType === "rented" ? t("vRented") : t("vAuthorized"), t("vehicleType"))
+            : tile("🎫", t("busCoach"), t("vehicleType"))) +
+          tile("📅", fmtDate(state.date, state.lang), t("tripDate")) +
+          tile("🕗", fmtTime(state.time, state.lang), t("arrivalTime")) +
+          tile("⏳", d.nowWait + " " + t("min"), t("waitNow")) +
+        '</div>' +
+      '</div>' +
+
+      nav("docs", "traffic") +
+    '</div>';
+  };
+
+  function chartSvg(d) {
+    var CW = 300, CH = 104;
+    var col = d.nowBand === "high" ? "#E5484D" : d.nowBand === "medium" ? "#F5A524" : "#10B981";
+    var maxW = Math.max.apply(null, d.curve);
+
+    var pts = d.curve.map(function (v, i) {
+      return { x: (i / 23) * CW, y: CH - (v / maxW) * (CH - 10) - 4 };
+    });
+    var lineD = pts.map(function (p, i) { return (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1); }).join(" ");
+    var areaD = lineD + " L " + CW + " " + CH + " L 0 " + CH + " Z";
+    var ticks = [0, 4, 8, 12, 16, 20].map(function (h) {
+      return '<text x="' + ((h / 23) * CW).toFixed(1) + '" y="' + (CH + 14) + '" font-size="8.5" ' +
+             'fill="var(--muted)" text-anchor="middle" font-weight="600">' + pad(h) + '</text>';
+    }).join("");
+
+    return '<div class="chart"><svg viewBox="0 0 ' + CW + ' ' + (CH + 20) + '" aria-label="' + esc(t("trafficSub")) + '">' +
+      '<defs><linearGradient id="mhFill" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0%" stop-color="' + col + '" stop-opacity="0.38"/>' +
+        '<stop offset="100%" stop-color="' + col + '" stop-opacity="0.02"/>' +
+      '</linearGradient></defs>' +
+      '<path d="' + areaD + '" fill="url(#mhFill)"/>' +
+      '<path d="' + lineD + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+      '<line x1="' + pts[d.arrHour].x.toFixed(1) + '" y1="0" x2="' + pts[d.arrHour].x.toFixed(1) + '" y2="' + CH + '" ' +
+        'stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>' +
+      '<circle cx="' + pts[d.best.hour].x.toFixed(1) + '" cy="' + pts[d.best.hour].y.toFixed(1) + '" r="4.5" ' +
+        'fill="#10B981" stroke="var(--surface)" stroke-width="2"/>' +
+      '<circle cx="' + pts[d.arrHour].x.toFixed(1) + '" cy="' + pts[d.arrHour].y.toFixed(1) + '" r="4.5" ' +
+        'fill="' + col + '" stroke="var(--surface)" stroke-width="2"/>' +
+      ticks +
+    '</svg></div>';
+  }
+
+  S.traffic = function (d) {
+    var col = d.nowBand === "high" ? "#E5484D" : d.nowBand === "medium" ? "#F5A524" : "#10B981";
+    var lbl = d.nowBand === "high" ? t("congHigh") : d.nowBand === "medium" ? t("congMedium") : t("congLow");
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        '<h1 class="h1 h1--sm" style="margin-bottom:6px">' + esc(t("trafficTitle")) + ' ' + esc(d.crossingName) + '</h1>' +
+        '<p class="p p--sm">' + esc(t("trafficSub")) + '</p>' +
+        '<div class="why" style="margin-top:12px">' + esc(t("trafficBasis")) + '</div>' +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="grid2" style="margin-bottom:18px">' +
+          '<div class="stat">' +
+            '<div class="stat__k">' + esc(t("waitNow")) + ' · ' + esc(fmtTime(state.time, state.lang)) + '</div>' +
+            '<div class="stat__v" style="color:' + col + '">' + d.nowWait +
+              '<span class="stat__u">' + esc(t("min")) + '</span></div>' +
+            '<div class="stat__s" style="color:' + col + '">' + esc(lbl) + '</div>' +
+          '</div>' +
+          '<div class="stat">' +
+            '<div class="stat__k">' + esc(t("bestWindow")) + '</div>' +
+            '<div class="stat__v stat__v--sm">' + esc(fmtHour(d.best.hour, state.lang)) + ' – ' +
+              esc(fmtHour(d.best.hour + 1, state.lang)) + '</div>' +
+            '<div class="stat__s stat__s--mute">' +
+              esc(d.best.worthIt ? t("saves") + " " + d.best.saved + " " + t("min") : d.best.wait + " " + t("min")) +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        chartSvg(d) +
+        '<div class="legend">' +
+          '<span class="legend__i"><span class="legend__d" style="background:#10B981"></span>' + esc(t("congLow")) + '</span>' +
+          '<span class="legend__i"><span class="legend__d" style="background:#F5A524"></span>' + esc(t("congMedium")) + '</span>' +
+          '<span class="legend__i"><span class="legend__d" style="background:#E5484D"></span>' + esc(t("congHigh")) + '</span>' +
+          '<span>' + esc(t("peakToday")) + ': ' + esc(fmtHour(d.peakHour, state.lang)) +
+            ' · ' + d.curve[d.peakHour] + ' ' + esc(t("min")) + '</span>' +
+        '</div>' +
+      '</div>' +
+
+      nav("result", "reco") +
+    '</div>';
+  };
+
+  S.reco = function (d) {
+    var lines = buildRecommendations(d).map(function (line, i) {
+      return '<div class="reco__line"><span class="reco__n">' + (i + 1) + '</span>' +
+             '<p class="p p--ink">' + esc(line) + '</p></div>';
+    }).join("");
+
+    return '<div class="stack">' +
+      '<h1 class="h1">' + esc(t("recoTitle")) + '</h1>' +
+      '<div class="card card--ok">' +
+        '<div class="split">' +
+          '<div class="icon-box icon-box--plain" style="color:var(--brand-ink)">' + ICON.bulb() + '</div>' +
+          '<div class="reco__list">' + lines + '</div>' +
+        '</div>' +
+      '</div>' +
+      nav("traffic", "requirements") +
+    '</div>';
+  };
+
+  /* ---- لماذا طُلبت هذه المتطلبات ---- */
+  S.requirements = function (d) {
+    var nat = nationalityOf(state.nationality);
+
+    var inputs = [
+      [t("nationality"),  L(nat)],
+      [t("destination"),  d.destName],
+      [t("docType"),      state.docType === "passport" ? t("docPassport") : t("docNational")],
+      [t("tripDate"),     fmtDate(state.date, state.lang)],
+      [t("travelMode"),   state.mode === "car" ? t("modeCar") : t("modeBus")],
+      [t("vehicleType"),  state.mode === "car"
+        ? (state.vehicleType === "personal" ? t("vPersonal") : state.vehicleType === "rented" ? t("vRented") : t("vAuthorized"))
+        : t("busCoach")]
+    ].map(function (p) {
+      return '<div class="kv"><span class="kv__k">' + esc(p[0]) + '</span><span class="kv__v">' + esc(p[1]) + '</span></div>';
+    }).join("");
+
+    var rules = d.readiness.items.map(function (i, n) {
+      return '<div class="rule">' +
+        '<div class="rule__head"><span class="step__n">' + (n + 1) + '</span>' +
+          '<span class="rule__name">' + esc(L(REQ[i.key])) + '</span>' +
+          chip(statusTone(i.status), t(i.status)) + '</div>' +
+        '<p class="p p--xs" style="margin-top:8px">' + esc(i.because) + '</p>' +
+      '</div>';
+    }).join("");
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        '<h1 class="h1 h1--sm" style="margin-bottom:8px">' + esc(t("rulesTitle")) + '</h1>' +
+        '<p class="p">' + esc(t("rulesDesc")) + '</p>' +
+      '</div>' +
+      '<div class="card">' +
+        '<h2 class="h2 h2--xs" style="margin-bottom:12px">' + esc(t("inputs")) + '</h2>' + inputs +
+      '</div>' +
+      '<div class="card">' + rules + '</div>' +
+      '<button class="btn btn--brand" data-act="go" data-go="api">' + esc(t("viewApi")) + '</button>' +
+      '<div class="row">' +
+        '<button class="btn btn--ghost f1" data-act="go" data-go="reco">' + esc(t("back")) + '</button>' +
+        '<button class="btn btn--primary f14" data-act="go" data-go="traveler">' + esc(t("newCheck")) + '</button>' +
+      '</div>' +
+    '</div>';
+  };
+
+  S.api = function (d) {
+    var headers = Object.keys(API_HEADERS).map(function (k) {
+      return k + ": " + API_HEADERS[k];
+    }).join("\n");
+
+    return '<div class="stack">' +
+      '<div class="card">' +
+        '<h1 class="h1 h1--sm" style="margin-bottom:8px">' + esc(t("apiTitle")) + '</h1>' +
+        '<div class="endpoint">' + esc(d.api.endpoint) + '</div>' +
+        '<pre class="code code--sm">' + esc(headers) + '</pre>' +
+        '<p class="p p--xs" style="margin-top:12px">' + esc(t("apiNote")) + '</p>' +
+      '</div>' +
+      '<div class="card card--flush">' +
+        '<div class="code__k">' + esc(t("requestBody")) + '</div>' +
+        '<pre class="code">' + esc(JSON.stringify(d.api.request, null, 2)) + '</pre>' +
+      '</div>' +
+      '<div class="card card--flush">' +
+        '<div class="code__k">' + esc(t("responseBody")) + '</div>' +
+        '<pre class="code">' + esc(JSON.stringify(state.apiResult || d.api.response, null, 2)) + '</pre>' +
+      '</div>' +
+      '<div class="row">' +
+        '<button class="btn btn--ghost f1" data-act="go" data-go="requirements">' + esc(t("back")) + '</button>' +
+        '<button class="btn btn--primary f14" data-act="go" data-go="home">' + esc(t("home")) + '</button>' +
+      '</div>' +
+    '</div>';
+  };
+
+  /* ============ 12. العرض والأحداث ============ */
+
+  var app = document.getElementById("app");
+  var footer = document.getElementById("footer");
+  var brandLogo = document.getElementById("brandLogo");
+  var themeBtn = document.getElementById("themeBtn");
+  var langBtn = document.getElementById("langBtn");
+
+  function render() {
+    var root = document.documentElement;
+    root.setAttribute("lang", state.lang);
+    root.setAttribute("dir", isRTL() ? "rtl" : "ltr");
+    root.setAttribute("data-theme", state.theme);
+
+    if (brandLogo) brandLogo.innerHTML = ICON.logo(26);
+    if (themeBtn) { themeBtn.textContent = state.theme === "dark" ? "🌙" : "☀️"; themeBtn.setAttribute("aria-label", t("theme")); }
+    if (langBtn) { langBtn.textContent = isRTL() ? "EN" : "ع"; langBtn.setAttribute("aria-label", t("language")); }
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (el) {
+      el.textContent = t(el.getAttribute("data-i18n"));
+    });
+
+    var d = compute();
+    app.innerHTML = (S[state.screen] || S.home)(d);
+    if (footer) footer.className = "footer" + (state.screen === "checking" ? " is-hidden" : "");
+  }
+
+  function go(next) {
+    state.screen = next;
+    render();
+    if (window.scrollTo) window.scrollTo(0, 0);
+  }
+
+  function finishCheck(source, apiData, errorMsg) {
+    state.isChecking = false;
+    state.source = source;
+    state.openReq = null;
+
+    if (source === "server" && apiData) {
+      state.apiResult = apiData;
+      state.apiError = null;
+      go("result");
+    } else if (errorMsg) {
+      // فشل الاتصال: لا نعرض أي نتيجة (محلية أو مزيفة) على أنها نتيجة الخادم.
+      state.apiResult = null;
+      state.apiError = errorMsg;
+      go("checkError");
+    } else {
+      // لا يوجد API_BASE مُعرّف: نستخدم المحرك المحلي بوضوح كمصدر محلي (سلوك تراجعي فقط).
+      state.apiResult = null;
+      state.apiError = null;
+      go("result");
+    }
+  }
+
+  function runCheck() {
+    state.isChecking = true;
+    state.apiError = null;
+    go("checking");
+    if (checkTimer) clearTimeout(checkTimer);
+
+    if (!API_BASE) {
+      checkTimer = setTimeout(function () { finishCheck("local"); }, 1100);
+      return;
+    }
+
+    var body = apiRequestBody(compute());
+
+    fetch(API_BASE + API_PATH, {
+      method: "POST",
+      headers: API_HEADERS,
+      body: JSON.stringify(body)
+    })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error("HTTP " + res.status);
+        }
+        return res.json();
+      })
+      .then(function (json) {
+        finishCheck("server", json, null);
+      })
+      .catch(function (err) {
+        finishCheck("server", null, (t("apiErrorDesc")) + (err && err.message ? " (" + err.message + ")" : ""));
+      });
+  }
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-act]") : null;
+    if (!el) return;
+    var act = el.getAttribute("data-act");
+
+    if (act === "go") {
+      go(el.getAttribute("data-go"));
+
+    } else if (act === "theme") {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      render();
+
+    } else if (act === "lang") {
+      state.lang = isRTL() ? "en" : "ar";
+      render();
+
+    } else if (act === "check") {
+      if (state.isChecking) return;
+      runCheck();
+
+    } else if (act === "toggleReq") {
+      var k = el.getAttribute("data-req");
+      state.openReq = state.openReq === k ? null : k;
+      render();
+
+    } else if (act === "set") {
+      var f = el.getAttribute("data-field");
+      var v = el.getAttribute("data-value");
+
+      if (f.indexOf("doc:") === 0) {
+        state.docs[f.slice(4)] = (v === "yes");
+      } else if (f === "mode") {
+        state.mode = v;
+      } else if (f === "vehicleType") {
+        state.vehicleType = v;
+      } else if (f === "busType") {
+        state.busType = v;
+      } else if (f === "docType") {
+        state.docType = v;
+      }
+      render();
+    }
+  });
+
+  document.addEventListener("change", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-field]") : null;
+    if (!el || el.tagName === "BUTTON") return;
+    var f = el.getAttribute("data-field");
+
+    if (f === "doc") {
+      state.docs[el.getAttribute("data-key")] = el.value;
+    } else if (f === "destKey") {
+      state.destKey = el.value;
+      state.crossing = DESTS[state.destKey].crossings[0].id;
+    } else if (f === "nationality") {
+      state.nationality = el.value;
+      if (!nationalityOf(state.nationality).gcc) state.docType = "passport";
+    } else if (f in state) {
+      state[f] = el.value;
+    }
+    render();
+  });
+
+  render();
+})();
+  </script>
+</body>
+</html>
